@@ -37,7 +37,10 @@ py -m pip install pip setuptools wheel --upgrade
 pip freeze > requirements.txt
 
 # Criar o projeto Django (dentro do venv)
-django-admin startproject .
+django-admin startproject config .
 
 # Rodar o servidor de desenvolvimento (dentro do venv)
 py manage.py runserver
+
+# Subir as migrations nativas (dentro do venv)
+python manage.py migrate
