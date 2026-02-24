@@ -1,6 +1,6 @@
 # Estrutura
 1- Criar pasta hospital-api-drf
-2- Criar repositório no GitHub
+2- Criar repositório no GitHub main/dev
 3- Instalar o Python versão mais recente
 
 # Criar ambiente virtual
@@ -41,11 +41,3 @@ django-admin startproject .
 
 # Rodar o servidor de desenvolvimento (dentro do venv)
 py manage.py runserver
-
-# Configurações do GIT
-git config --global user.name "Leonardo de Andrade Oliveira"
-git config --global user.email "leonardo.esportemental@gmail.com"
-git config --global init.defaultBranch main
-git init
-ssh-keygen
-git remote add origin git@github.com:LeoAnDev/hospital-api-drf.git
