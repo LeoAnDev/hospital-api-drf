@@ -36,6 +36,9 @@ py -m pip install pip setuptools wheel --upgrade
 # Criar o requirements.txt (dentro do venv)
 pip freeze > requirements.txt
 
+# Instalar as dependências do requirements.txt (dentro do venv)
+pip install -r requirements.txt
+
 # Criar o projeto Django (dentro do venv)
 django-admin startproject config .
 
