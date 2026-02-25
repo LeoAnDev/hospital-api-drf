@@ -44,3 +44,6 @@ py manage.py runserver
 
 # Subir as migrations nativas (dentro do venv)
 python manage.py migrate
+
+# Criar um superusuário (dentro do venv)
+python manage.py createsuperuser
