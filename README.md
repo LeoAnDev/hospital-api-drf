@@ -50,3 +50,6 @@ python manage.py migrate
 
 # Criar um superusuário (dentro do venv)
 python manage.py createsuperuser
+
+# Instalar o Django REST Framework (dentro do venv)
+pip install djangorestframework
