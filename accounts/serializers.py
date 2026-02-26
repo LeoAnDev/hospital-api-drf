@@ -2,7 +2,6 @@
 Accounts app serializers.
 """
 
-
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
@@ -23,10 +22,11 @@ class UserSerializer(serializers.ModelSerializer):
     """
     Serializer for the User model
     """
+    first_name = serializers.CharField(required=True, allow_blank=False)
+    last_name = serializers.CharField(required=True, allow_blank=False)
+    email = serializers.EmailField(required=True, allow_blank=False)
     groups = GroupSerializer(many=True, read_only=True)
-    """
-    Serializer for the User model
-    """
+
     class Meta:
         """
         Meta class for UserSerializer
@@ -38,46 +38,38 @@ class UserSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {'password': {'write_only': True}}
 
-    def validate_username(self, value):
-        """
-        Validate that the username is uppercase.
-        """
-        return value.upper()
-
     def validate_first_name(self, value):
         """
-        Validate that the first name is uppercase.
+        Validate the first_name field to uppercase
         """
         return value.upper()
 
     def validate_last_name(self, value):
         """
-        Validate that the last name is uppercase.
+        Validate the last_name field to uppercase
         """
         return value.upper()
 
+    def validate(self, attrs):
+        request = self.context.get('request')
+        if request and request.method in ['POST', 'PUT', 'PATCH']:
+            groups_ids = request.data.get('groups')
+            if not groups_ids:
+                raise serializers.ValidationError(
+                    {"groups": "O campo 'groups' não pode ser vazio."})
+        return attrs
+
     def create(self, validated_data):
-        password = validated_data.pop('password', None)
-        groups = validated_data.pop('groups', [])
-        user = User(**validated_data)
-        if password:
-            user.set_password(password)
-        user.save()
-        if groups:
-            user.groups.set(groups)
+        groups_ids = self.context['request'].data.get('groups', [])
+        user = User.objects.create_user(**validated_data)
+        user.groups.set(groups_ids)
         return user
 
     def update(self, instance, validated_data):
-        for attr in ['username', 'first_name', 'last_name']:
-            if attr in validated_data:
-                setattr(instance, attr, validated_data[attr].upper())
-        password = validated_data.pop('password', None)
-        groups = validated_data.pop('groups', None)
+        groups_ids = self.context['request'].data.get('groups', [])
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
-        if password:
-            instance.set_password(password)
         instance.save()
-        if groups is not None:
-            instance.groups.set(groups)
+        if groups_ids is not None:
+            instance.groups.set(groups_ids)
         return instance
