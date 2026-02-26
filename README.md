@@ -53,3 +53,6 @@ python manage.py createsuperuser
 
 # Instalar o Django REST Framework (dentro do venv)
 pip install djangorestframework
+
+# Instalar o Simple JWT para autenticação (dentro do venv)
+pip install djangorestframework-simplejwt
