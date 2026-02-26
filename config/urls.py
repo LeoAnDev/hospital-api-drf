@@ -15,7 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+
+# Import the include function to include URLs from other apps
 from django.urls import path, include
+
+# Import views for JWT authentication
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -35,6 +39,8 @@ urlpatterns = [
         TokenRefreshView.as_view(),
         name='token_refresh'
     ),
+    
+    path('api/accounts/', include('accounts.urls')),
 
     # Include URLs from custom apps
     path('api/accounts/', include('accounts.urls')),

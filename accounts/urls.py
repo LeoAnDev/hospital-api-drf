@@ -1,13 +1,14 @@
 """
-URLs for the accounts app
+accounts URL Configuration
 """
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from .views import UserViewSet, GroupViewSet
 
 router = DefaultRouter()
-# aqui depois você registra os viewsets:
-# router.register(r'users', UserViewSet, basename='user')
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
