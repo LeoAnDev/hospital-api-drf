@@ -34,13 +34,12 @@ urlpatterns = [
         TokenObtainPairView.as_view(),
         name='token_obtain_pair'
     ),
+    # Refresh token endpoint
     path(
         'api/token/refresh/',
         TokenRefreshView.as_view(),
         name='token_refresh'
     ),
-    
-    path('api/accounts/', include('accounts.urls')),
 
     # Include URLs from custom apps
     path('api/accounts/', include('accounts.urls')),
