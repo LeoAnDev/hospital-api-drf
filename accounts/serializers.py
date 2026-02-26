@@ -17,6 +17,12 @@ class GroupSerializer(serializers.ModelSerializer):
         model = Group
         fields = ['id', 'name']
 
+    def validate_name(self, value):
+        """
+        Validate the first_name field to uppercase
+        """
+        return value.upper()
+
 
 class UserSerializer(serializers.ModelSerializer):
     """
